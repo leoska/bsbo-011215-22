@@ -9,32 +9,38 @@ namespace bsbo_011215_22
 		// Проверка на пустоту списка
 		public bool isEmpty()
 		{
-			return top == null;
+			Application.N_OP += 1;
+			return top == null; // 1
 		}
 
 		// Добавление нового элемента в список
 		public void Push(Element newElement)
 		{
-			if (!isEmpty())
+            Application.N_OP += 3;
+            if (!isEmpty()) // 3
 			{
-                newElement.next = top;
+                newElement.next = top; // 2
+                Application.N_OP += 2;
             }
 
-			top = newElement;
+			top = newElement; // 1
+            Application.N_OP += 1;
         }
 
 		// Извлечение верхнего элемента из списка
 		public Element Pop()
 		{
-			if (isEmpty())
+            Application.N_OP += 2;
+            if (isEmpty()) // 2
 			{
 				throw new Exception("List is empty");
 			}
 
-			Element result = top;
-			top = top.next;
+			Element result = top; // 1
+			top = top.next; // 2
 
-			result.next = null;
+			result.next = null; // 2
+            Application.N_OP += 5;
 
             return result;
         }
@@ -55,24 +61,31 @@ namespace bsbo_011215_22
 		public int Get(int index)
 		{
 			Element current = top;
+            Application.N_OP += 1;
 
-			for (int i = 0; i < index; i++) {
-				current = current.next;
+            Application.N_OP += 2;
+            for (int i = 0; i < index; i++) {
+				current = current.next; // 2
 
-				if (current == null)
+				if (current == null) // 1
 				{
 					throw new Exception("Out of range in list!");
 				}
+
+                Application.N_OP += 5;
             }
 
-			return current.value;
+            Application.N_OP += 1;
+            return current.value;
         }
 
 		// Обращение по индексу в списке на перезапись
         public void Set(int index, int newValue)
         {
             Element current = top;
+            Application.N_OP += 1;
 
+            Application.N_OP += 2;
             for (int i = 0; i < index; i++)
             {
                 current = current.next;
@@ -81,16 +94,25 @@ namespace bsbo_011215_22
                 {
                     throw new Exception("Out of range in list!");
                 }
+                Application.N_OP += 5;
             }
 
+            Application.N_OP += 2;
             current.value = newValue;
         }
 
 		// Перегрузка оператора индексации [] 
         public int this[int index]
 		{
-			get => Get(index);
-			set => Set(index, value);
+			get {
+                Application.N_OP += 2;
+                return Get(index);
+			}
+			set
+			{
+                Application.N_OP += 3;
+                Set(index, value);
+			}
         }
 	}
 }

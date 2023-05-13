@@ -5,6 +5,7 @@ internal class Application
 {
     // Размер массива
     static int N = 5;
+    static public int N_OP = 0;
 
     // Вывод содержимого массива в консоль
     static void PrintArr(int[] arr)
@@ -79,7 +80,7 @@ internal class Application
 
     // Сортировка линейно-связанного списка
     static void ListSort() {
-        int n = 5;
+        int n = 300;
         List list = new List();
         Random rnd = new Random();
 
@@ -108,6 +109,7 @@ internal class Application
         }
 
         list.Print();
+        Console.WriteLine($"N_OP: {Application.N_OP}");
     }
 
     // Сортировка стэка
@@ -187,8 +189,8 @@ internal class Application
         //RefTypes();
 
         ListSort();
-        StackSort();
-        StackArraySort();
+        //StackSort();
+        //StackArraySort();
     }
 }
 
